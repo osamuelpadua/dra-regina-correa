@@ -17,66 +17,94 @@ document.querySelectorAll('.faq-q').forEach(q=>{
   });
 });
 
-// depoimentos carrossel
+// depoimentos carrossel (paginado: avanca de "per em per")
 (function(){
   const root=document.querySelector('[data-depo]');
   if(!root) return;
+  const viewport=root.querySelector('.depo-viewport');
   const track=root.querySelector('.depo-track');
   const slides=Array.from(track.children);
   const dotsWrap=root.querySelector('.depo-dots');
   const prev=root.querySelector('.depo-btn--prev');
   const next=root.querySelector('.depo-btn--next');
-  if(slides.length<=1){ if(prev)prev.hidden=true; if(next)next.hidden=true; return; }
 
-  let index=0, timer;
-  const dots=slides.map((_,i)=>{
-    const b=document.createElement('button');
-    b.className='depo-dot';
-    b.type='button';
-    b.setAttribute('aria-label','Ir para o depoimento '+(i+1));
-    b.addEventListener('click',()=>go(i,true));
-    dotsWrap.appendChild(b);
-    return b;
-  });
+  // quantos depoimentos cabem por pagina (le a variavel CSS --per)
+  const per=()=>{
+    const v=parseInt(getComputedStyle(root).getPropertyValue('--per'),10);
+    return Number.isFinite(v)&&v>0?v:1;
+  };
+  const pages=()=>Math.ceil(slides.length/per());
+
+  let page=0, timer;
+
+  function buildDots(){
+    dotsWrap.innerHTML='';
+    const n=pages();
+    for(let i=0;i<n;i++){
+      const b=document.createElement('button');
+      b.className='depo-dot';
+      b.type='button';
+      b.setAttribute('aria-label','Ir para a página '+(i+1)+' de '+n);
+      b.addEventListener('click',()=>go(i,true));
+      dotsWrap.appendChild(b);
+    }
+  }
 
   function update(){
-    track.style.transform='translateX(-'+(index*100)+'%)';
-    dots.forEach((d,i)=>d.setAttribute('aria-current', i===index ? 'true':'false'));
+    const n=pages();
+    if(page>n-1) page=n-1;
+    if(page<0) page=0;
+    // desloca uma "pagina" inteira (largura do viewport visivel)
+    const shift=viewport.clientWidth*page;
+    track.style.transform='translateX(-'+shift+'px)';
+    const dots=Array.from(dotsWrap.children);
+    dots.forEach((d,i)=>d.setAttribute('aria-current', i===page ? 'true':'false'));
+    const single=n<=1;
+    if(prev)prev.hidden=single;
+    if(next)next.hidden=single;
   }
-  function go(i,user){
-    index=(i+slides.length)%slides.length;
+  function go(p,user){
+    const n=pages();
+    page=(p+n)%n;
     update();
     if(user) restart();
   }
   function restart(){
-    if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
     clearInterval(timer);
-    timer=setInterval(()=>go(index+1),6000);
+    if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+    if(pages()<=1) return;
+    timer=setInterval(()=>go(page+1),7000);
   }
 
-  prev&&prev.addEventListener('click',()=>go(index-1,true));
-  next&&next.addEventListener('click',()=>go(index+1,true));
+  prev&&prev.addEventListener('click',()=>go(page-1,true));
+  next&&next.addEventListener('click',()=>go(page+1,true));
 
-  // teclado
   root.addEventListener('keydown',e=>{
-    if(e.key==='ArrowLeft')go(index-1,true);
-    if(e.key==='ArrowRight')go(index+1,true);
+    if(e.key==='ArrowLeft')go(page-1,true);
+    if(e.key==='ArrowRight')go(page+1,true);
   });
 
-  // suporte a swipe (toque)
+  // swipe (toque)
   let x0=null;
   track.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
   track.addEventListener('touchend',e=>{
     if(x0===null)return;
     const dx=e.changedTouches[0].clientX-x0;
-    if(Math.abs(dx)>40)go(index+(dx<0?1:-1),true);
+    if(Math.abs(dx)>40)go(page+(dx<0?1:-1),true);
     x0=null;
   });
 
-  // pausa ao passar o mouse
   root.addEventListener('mouseenter',()=>clearInterval(timer));
   root.addEventListener('mouseleave',restart);
 
+  // recalcula em resize (per/largura mudam)
+  let rt;
+  window.addEventListener('resize',()=>{
+    clearTimeout(rt);
+    rt=setTimeout(()=>{ buildDots(); update(); },150);
+  });
+
+  buildDots();
   update();
   restart();
 })();
