@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://atriumrehab.com.br/sitemap.xml
