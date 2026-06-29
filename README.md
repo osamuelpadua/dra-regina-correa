@@ -53,7 +53,6 @@ As imagens vieram de um script com [`sharp`](https://sharp.pixelplumbing.com/). 
 
 - [ ] **Bairros / raio de atendimento** exatos na FAQ ("Atendem em quais regiões?").
 - [ ] **Domínio**: trocar `https://atriumrehab.com.br/` em `index.html` (canonical/OG), `robots.txt` e `sitemap.xml` pelo domínio real.
-- [ ] (Opcional) **Foto da Dra. Regina** na seção "Quem conduz" (hoje usa o símbolo da marca como placeholder).
 - [ ] (Opcional) **Fonte Elgraine**: há `@font-face` comentado no topo do `css/styles.css` para substituir as fontes serifadas quando os arquivos da Elgraine estiverem disponíveis.
 
 > ⚠️ **Privacidade dos depoimentos:** alguns prints contêm nomes, fotos e imagens de pacientes. Confirme que há **consentimento** para uso público antes de publicar.
