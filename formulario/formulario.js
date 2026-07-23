@@ -260,7 +260,7 @@
 
     wrap.appendChild(lbl);
     wrap.appendChild(inp);
-    wrap.appendChild(el('p', 'av-note', 'Seu número chega junto com a mensagem — não precisa digitar.'));
+    wrap.appendChild(el('p', 'av-note', 'Ao abrir o WhatsApp, é só tocar em enviar para que a equipe receba suas respostas.'));
     wrap.appendChild(btn);
     return wrap;
   }
@@ -293,6 +293,9 @@
     send.appendChild(waIcon());
     send.appendChild(el('span', null, 'Enviar no WhatsApp'));
     wrap.appendChild(send);
+
+    wrap.appendChild(el('p', 'av-note',
+      'Importante: ao abrir o WhatsApp, toque em enviar para que a equipe receba suas respostas.'));
 
     var restart = el('button', 'av-btn av-btn--ghost', 'Recomeçar');
     restart.type = 'button';
