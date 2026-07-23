@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avaliação Inicial de Funcionalidade — Atrium Rehab</title>
+  <meta name="description" content="Em menos de 2 minutos, responda algumas perguntas para identificar sinais que podem indicar redução da capacidade funcional e da autonomia.">
+  <meta name="robots" content="noindex,follow">
+  <meta name="theme-color" content="#324224">
+  <meta name="author" content="Atrium Rehab">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="formulario.css">
+</head>
+<body>
+
+  <div class="top-bar"></div>
+
+  <div class="av-shell">
+
+    <header class="av-head">
+      <a href="/bio/" class="av-back-home" aria-label="Voltar para a página de links">
+        <img src="../assets/img/logo-atrium.svg" alt="Atrium Rehab" class="av-logo">
+      </a>
+    </header>
+
+    <!-- Progresso -->
+    <div class="av-progress" id="progress-wrap" hidden>
+      <div class="av-progress-track">
+        <div class="av-progress-fill" id="progress-fill"></div>
+      </div>
+      <span class="av-progress-label" id="progress-label"></span>
+    </div>
+
+    <main class="av-main">
+      <!-- O JS injeta uma tela por vez aqui -->
+      <div id="quiz-stage" aria-live="polite"></div>
+    </main>
+
+    <footer class="av-foot">
+      <button type="button" class="av-back" id="btn-back" hidden>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Voltar
+      </button>
+    </footer>
+
+  </div>
+
+  <script src="formulario.js" defer></script>
+
+</body>
+</html>

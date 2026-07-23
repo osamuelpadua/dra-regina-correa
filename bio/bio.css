@@ -1,0 +1,376 @@
+/* ===== ATRIUM REHAB — PÁGINA DE LINKS ===== */
+/* Paleta e tipografia herdadas do site institucional (atriumrehab.com.br). */
+
+:root {
+  --green: #324224;
+  --green-deep: #283619;
+  --green-mid: #3e5e4b;
+  --sage: #57664e;
+  --bronze: #cd9758;
+  --bronze-deep: #af7a3a;
+  --bronze-soft: #dcb585;
+  --cream: #f6f6f4;
+  --areia: #e5d8ca;
+  --ink: #2b3322;
+  --ink-soft: #555a48;
+  --line: rgba(50, 66, 36, .14);
+  --line-soft: rgba(50, 66, 36, .07);
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Inter', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.links-page {
+  background: var(--cream);
+  min-height: 100vh;
+}
+
+.top-bar {
+  height: 8px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--green-deep), var(--green), var(--bronze));
+}
+
+/* center + min-height garante que o rodapé fique no fim da viewport
+   sem deixar um vão morto quando o conteúdo é curto. */
+.lk-main {
+  position: relative;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 20px 64px;
+  overflow: hidden;
+}
+
+/* Grain suave sobre fundo creme */
+.lk-grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  mix-blend-mode: multiply;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.lk-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 44px;
+}
+
+/* ===== HEADER ===== */
+.lk-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  opacity: 0;
+  animation: lk-fadeDown 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.05s forwards;
+}
+
+/* Logo Atrium é vertical (símbolo + wordmark empilhados).
+   SVG vetorial: escala sem perda, então a altura é livre. */
+.lk-logo {
+  height: 230px;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 2px 12px rgba(50, 66, 36, 0.12));
+}
+
+.lk-bio {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--sage);
+  text-align: center;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+/* ===== CARDS ===== */
+.lk-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+.lk-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+  border-radius: 18px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  box-shadow: 0 2px 16px var(--line-soft);
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: background 0.22s, transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+}
+
+/* cta-gradient acompanha o card bronze (Avaliação Inicial), na 1ª posição. */
+.lk-card:nth-child(1) { animation: lk-fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.18s forwards, cta-gradient 10s linear 0.73s infinite; }
+.lk-card:nth-child(2) { animation: lk-fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.28s forwards; }
+.lk-card:nth-child(3) { animation: lk-fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.38s forwards; }
+.lk-card:nth-child(4) { animation: lk-fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.48s forwards; }
+.lk-card:nth-child(5) { animation: lk-fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.58s forwards; }
+
+.lk-card:hover {
+  background: #fffdfa;
+  border-color: rgba(205, 151, 88, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(50, 66, 36, 0.14);
+}
+
+/* Primary card (Avaliação Inicial) — fundo branco, destaque pela borda
+   dourada de 2px. O gradiente anima na própria borda, via border-image. */
+.lk-card--primary {
+  background: #ffffff;
+  border: 2px solid transparent;
+  border-radius: 18px;
+  background-image:
+    linear-gradient(#ffffff, #ffffff),
+    linear-gradient(135deg, #e8c295, #d9a05d, #cd9758, #d9a05d, #e8c295);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-size: auto, 400% 400%;
+  box-shadow: 0 6px 28px rgba(175, 122, 58, 0.22);
+  position: relative;
+  overflow: hidden;
+  /* compensa os 2px de borda p/ alinhar a altura com os demais cards */
+  padding: 17px 21px;
+}
+
+.lk-card--primary::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 35%;
+  height: 200%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.32), transparent);
+  transform: skewX(-18deg);
+  animation: btn-shine 5s ease-in-out 1s infinite;
+  pointer-events: none;
+}
+
+.lk-card--primary:hover {
+  background-image:
+    linear-gradient(#fffdf9, #fffdf9),
+    linear-gradient(135deg, #dcae7a, #cd9047, #bd8442, #cd9047, #dcae7a);
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 14px 44px rgba(175, 122, 58, 0.3);
+  border-color: transparent;
+}
+
+/* Icon circle */
+.lk-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  /* Dourado calibrado: no tom mais claro o ícone branco fica em 3,3:1,
+     acima do mínimo de 3:1 para componentes gráficos. */
+  background: linear-gradient(135deg, #b4854d, #a8783f, #916431);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.22s;
+}
+
+.lk-card:hover .lk-icon {
+  transform: scale(1.06);
+}
+
+/* z-index acima do ::after (brilho) que só existe no card destaque */
+.lk-card--primary .lk-icon {
+  position: relative;
+  z-index: 1;
+}
+
+/* Text */
+.lk-card-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.lk-card-title {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--green);
+  line-height: 1.2;
+}
+
+/* text-wrap:pretty evita palavra órfã na última linha das descrições
+   longas (o card do guia quebra em 2 linhas). */
+.lk-card-desc {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+/* Fundo branco: o texto usa as mesmas cores dos demais cards. */
+.lk-card--primary .lk-card-desc {
+  font-weight: 400;
+}
+
+/* Arrow */
+.lk-arrow {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  color: var(--bronze-deep);
+  position: relative;
+  z-index: 1;
+  transition: opacity 0.22s, transform 0.22s, color 0.22s;
+}
+
+.lk-card--primary .lk-arrow {
+  color: var(--bronze-deep);
+}
+
+.lk-card:hover .lk-arrow {
+  transform: translateX(4px);
+}
+
+.lk-card--primary:hover .lk-arrow {
+  color: var(--green);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes lk-fadeDown {
+  from { opacity: 0; transform: translateY(-22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes lk-fadeUp {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 2 camadas: a 1ª (preenchimento branco) fica parada, a 2ª (borda) desliza. */
+@keyframes cta-gradient {
+  0%   { background-position: 0% 0%, 0% 50%; }
+  50%  { background-position: 0% 0%, 100% 50%; }
+  100% { background-position: 0% 0%, 0% 50%; }
+}
+
+@keyframes btn-shine {
+  0%   { left: -60%; }
+  22%  { left: 130%; }
+  100% { left: 130%; }
+}
+
+/* ===== FOOTER (crédito do desenvolvedor) ===== */
+.site-footer {
+  position: relative;
+  min-height: 72px;
+  background: linear-gradient(135deg, var(--green-mid) 0%, var(--green) 50%, var(--green-deep) 100%);
+  overflow: hidden;
+}
+
+.site-footer-grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+  opacity: 0.42;
+  pointer-events: none;
+}
+
+.site-footer-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 860px;
+  min-height: 72px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+/* Crédito discreto: presente, sem competir com o conteúdo da página. */
+.site-footer-credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.62;
+  transition: opacity 0.22s;
+}
+
+.site-footer-credit:hover {
+  opacity: 1;
+}
+
+.site-footer-credit-text {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: rgba(246, 246, 244, 0.95);
+  white-space: nowrap;
+}
+
+.site-footer-credit-logo {
+  height: 22px;
+  width: auto;
+  display: block;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+  .lk-main { padding: 40px 16px 48px; }
+  .lk-container { gap: 36px; }
+  .lk-logo { height: 190px; }
+  .lk-card { padding: 16px; gap: 14px; }
+  .lk-icon { width: 44px; height: 44px; }
+  .lk-card-title { font-size: 19px; }
+  .lk-card-desc { font-size: 12px; }
+  .site-footer { min-height: unset; }
+  .site-footer-inner { min-height: unset; padding: 16px 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lk-header,
+  .lk-card {
+    opacity: 1;
+    animation: none;
+  }
+  .lk-card--primary::after {
+    animation: none;
+    display: none;
+  }
+}
