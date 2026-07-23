@@ -8,12 +8,18 @@ Site 100% estático (HTML + CSS + JS, sem build), pronto para hospedar em qualqu
 
 ```
 .
-├── index.html              # página única
-├── css/styles.css          # estilos
+├── index.html              # página inicial
+├── guia-de-encaminhamento-profissional/
+│   └── index.html          # guia para profissionais que encaminham pacientes
+├── css/
+│   ├── styles.css          # estilos da home
+│   └── guia-encaminhamento.css  # estilos do guia de encaminhamento
 ├── js/main.js              # reveal-on-scroll, FAQ accordion, carrossel de depoimentos
-├── assets/img/             # imagens otimizadas (AVIF + WebP + JPEG)
-│   ├── hero.*  filsec.*  beat.*
-│   └── depoimentos/        # dep-01..dep-09 (prints de depoimentos)
+├── assets/
+│   ├── Guia_Encaminhamento_Profissional_Atrium_Rehab.pdf  # download do guia
+│   └── img/                # imagens otimizadas (AVIF + WebP + JPEG)
+│       ├── hero.*  filsec.*  beat.*  logo-atrium.*
+│       └── depoimentos/    # dep-01..dep-09 (prints de depoimentos)
 ├── favicon.svg
 ├── robots.txt
 └── sitemap.xml
