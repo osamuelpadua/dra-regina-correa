@@ -11,6 +11,8 @@ Site 100% estático (HTML + CSS + JS, sem build), pronto para hospedar em qualqu
 ├── index.html              # página inicial
 ├── guia-de-encaminhamento-profissional/
 │   └── index.html          # guia para profissionais que encaminham pacientes
+├── guia/
+│   └── index.html          # atalho /guia → redireciona para o PDF do guia
 ├── css/
 │   ├── styles.css          # estilos da home
 │   └── guia-encaminhamento.css  # estilos do guia de encaminhamento
